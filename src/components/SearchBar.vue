@@ -1,10 +1,12 @@
 <template>
-  <v-app-bar height="65" fixed class="app-bar-search-container" color="default">
+  <v-app-bar app height="65" class="app-bar-search-container" color="default">
     <v-autocomplete
       :menu-props="{ maxWidth: 1200 }"
       class="app-bar-autocomplete"
       v-model="searchText"
+      :search-input.sync="search"
       :items="searchResults"
+      return-object
       item-text="text"
       item-value="id"
       label="Search"
@@ -45,6 +47,11 @@ export default {
       search: "",
       searchText: ""
     };
+  },
+  watch: {
+    search() {
+      console.log(this.search);
+    }
   }
 };
 </script>
@@ -52,7 +59,7 @@ export default {
 <style scoped>
 .app-bar-search-container {
   max-width: calc(100% - 256px);
-  margin-left: 256px;
+  left: 256px !important;
   box-shadow: 12px -12px 20px 1px rgba(0, 0, 0, 0.6) !important;
 }
 .app-bar-search-container
@@ -75,7 +82,7 @@ export default {
   opacity: 0.8;
 }
 .app-bar-autocomplete >>> .v-input__prepend-outer {
-  top: 1rem;
+  top: 1.2rem;
   position: relative;
 }
 .app-bar-autocomplete >>> .v-label {

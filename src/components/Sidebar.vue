@@ -1,6 +1,6 @@
 <template>
-  <v-card class="sidebar-card" height="100%" width="256">
-    <v-navigation-drawer class="primary" absolute permanent left>
+  <v-card class="sidebar-card" width="256">
+    <v-navigation-drawer app class="primary" permanent left>
       <template v-slot:prepend>
         <div class="sidebar-title-container primaryDarker">
           <h1 class="sidebar-title">Your Notes</h1>
@@ -44,7 +44,6 @@ export default {
   },
   methods: {
     handleListItem(item, index) {
-      console.log(item);
       this.clickedIdx = index;
     }
   }
@@ -54,6 +53,9 @@ export default {
 <style lang="scss" scoped>
 .sidebar-card {
   border-radius: 0 !important;
+  max-width: 256px !important;
+  display: inline-block;
+  height: 100%;
 }
 .sidebar-title-container {
   box-shadow: 12px -12px 20px 1px rgba(0, 0, 0, 0.6) !important;

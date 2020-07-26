@@ -1,11 +1,11 @@
 <template>
-  <v-app class="default-font">
-    <v-main>
-      <Sidebar />
+  <v-app id="inspire" class="default-font">
+    <Sidebar />
+    <v-content class="main-content">
       <SearchBar />
 
-      <router-view></router-view>
-    </v-main>
+      <router-view> </router-view>
+    </v-content>
   </v-app>
 </template>
 
@@ -33,5 +33,9 @@ export default {
 }
 .v-application >>> .v-menu__content {
   left: 342px !important;
+}
+.main-content {
+  position: absolute;
+  width: 100vw;
 }
 </style>
