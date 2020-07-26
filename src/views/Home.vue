@@ -1,10 +1,15 @@
 <template>
-  <div></div>
+  <div>
+    <Content />
+  </div>
 </template>
 
 <script>
+import Content from "../components/Content";
 export default {
   name: "Home",
-  components: {}
+  components: {
+    Content
+  }
 };
 </script>
