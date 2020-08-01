@@ -4,9 +4,15 @@
       <template v-for="(note, index) in notesList">
         <v-col class="content-column" :key="index">
           <v-card class="pa-2 content-card">
-            <v-card-subtitle class="content-card-subtitle-top">{{ note.dateCreated }}</v-card-subtitle>
-            <v-card-title class="content-card-title">{{ note.title }}</v-card-title>
-            <div class="text--primary content-card-description">{{ note.description }}</div>
+            <v-card-subtitle class="content-card-subtitle-top">{{
+              note.dateCreated
+            }}</v-card-subtitle>
+            <v-card-title class="content-card-title">{{
+              note.title
+            }}</v-card-title>
+            <div class="text--primary content-card-description">
+              {{ note.description }}
+            </div>
           </v-card>
         </v-col>
       </template>
