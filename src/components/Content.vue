@@ -1,19 +1,12 @@
 <template>
   <v-container>
     <v-row class="content-row">
-      <template v-for="n in 12">
-        <v-col class="content-column" :key="n">
+      <template v-for="(note, index) in notesList">
+        <v-col class="content-column" :key="index">
           <v-card class="pa-2 content-card">
-            <v-card-subtitle class="content-card-subtitle-top"
-              >23 June, 2017</v-card-subtitle
-            >
-            <v-card-title class="content-card-title"
-              >The monkey-rope</v-card-title
-            >
-            <div class="text--primary content-card-description">
-              Being the savage's bowsman, that is, the person who pulled the
-              bow-oar.
-            </div>
+            <v-card-subtitle class="content-card-subtitle-top">{{ note.dateCreated }}</v-card-subtitle>
+            <v-card-title class="content-card-title">{{ note.title }}</v-card-title>
+            <div class="text--primary content-card-description">{{ note.description }}</div>
           </v-card>
         </v-col>
       </template>
@@ -22,8 +15,12 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
 export default {
-  name: "Content"
+  name: "Content",
+  computed: {
+    ...mapState(["notesList"])
+  }
 };
 </script>
 
@@ -37,6 +34,7 @@ export default {
 .content-card {
   background: #fff;
   height: 22rem;
+  width: 30rem;
   /* box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24) !important; */
   /* 0px 0px 0px -2px rgb(247 247 247 / 20%), 1px 0px 0px -1px rgb(255 255 255 / 14%), 1px 3px 6px -2px rgb(175 175 175) */
 }
