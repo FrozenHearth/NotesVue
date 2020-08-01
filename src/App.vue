@@ -1,5 +1,5 @@
 <template>
-  <v-app id="inspire" class="default-font">
+  <v-app id="inspire">
     <Sidebar />
     <v-main class="main-content">
       <SearchBar />
@@ -27,7 +27,11 @@ html {
   overflow-y: auto !important;
 }
 .default-font {
-  font-family: Varta, sans-serif !important;
+  /* font-family: Varta, sans-serif !important; */
+  font-family: Poppins, sans-serif !important;
+}
+.roboto-font {
+  font-family: Roboto, sans-serif !important;
 }
 :root {
   font-size: 10px !important;

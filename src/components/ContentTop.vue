@@ -2,7 +2,7 @@
   <v-container class="top-container">
     <v-btn
       @click="$router.push({ name: 'AddNotes' })"
-      class="text-capitalize top-btn"
+      class="text-capitalize top-btn default-font"
       color="primary"
       text
     >
@@ -21,7 +21,7 @@ export default {
 .top-container {
   display: flex;
   justify-content: flex-end;
-  width: 92%;
+  width: 91%;
   margin-top: 3rem;
   margin-bottom: -2rem;
 }
@@ -29,6 +29,6 @@ export default {
   font-size: 1.4rem;
   font-weight: 500;
   letter-spacing: 0.5px;
-  font-family: Poppins, sans-serif;
+  margin-right: 3rem;
 }
 </style>
