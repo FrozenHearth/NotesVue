@@ -2,7 +2,7 @@
   <v-container>
     <v-row class="content-row">
       <template v-for="(note, index) in notesList">
-        <v-col class="content-column" :key="index">
+        <v-col cols="4" class="content-column" :key="index">
           <v-card class="pa-2 content-card">
             <v-card-subtitle class="content-card-subtitle-top">{{
               note.dateCreated
@@ -10,7 +10,7 @@
             <v-card-title class="content-card-title">{{
               note.title
             }}</v-card-title>
-            <div class="text--primary content-card-description">
+            <div class="grey--text  content-card-description roboto-font">
               {{ note.description }}
             </div>
           </v-card>
@@ -33,6 +33,9 @@ export default {
 <style scoped>
 .content-row {
   padding: 16px 48px;
+  height: 500px;
+  overflow-y: auto;
+  margin-right: 0.1rem !important;
 }
 .content-column {
   flex-basis: 21%;
@@ -40,7 +43,8 @@ export default {
 .content-card {
   background: #fff;
   height: 22rem;
-  width: 30rem;
+  width: 23.5rem;
+  margin-right: 0.4rem;
   /* box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24) !important; */
   /* 0px 0px 0px -2px rgb(247 247 247 / 20%), 1px 0px 0px -1px rgb(255 255 255 / 14%), 1px 3px 6px -2px rgb(175 175 175) */
 }
@@ -55,7 +59,15 @@ export default {
 }
 .content-card-description {
   font-size: 1.6rem;
-  font-weight: 300;
   padding: 8px 16px;
+}
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--v-primary-base);
+  border-right: 4px white solid;
+  border-top: 26px white solid;
+  border-bottom: 24px white solid;
 }
 </style>

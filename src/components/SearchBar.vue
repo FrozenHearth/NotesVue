@@ -2,14 +2,14 @@
   <v-app-bar
     app
     height="65"
-    class="app-bar-search-container"
+    class="app-bar-search-container roboto-font"
     :class="[$route.name === 'AddNotes' ? 'no-box-shadow' : '']"
     color="default"
   >
     <v-autocomplete
       v-if="$route.name !== 'AddNotes'"
       :menu-props="{ maxWidth: 1200 }"
-      class="app-bar-autocomplete"
+      class="app-bar-autocomplete roboto-font"
       v-model="searchText"
       :search-input.sync="search"
       :items="searchResults"
@@ -96,7 +96,10 @@ export default {
   left: 0 !important;
   top: -1px !important;
   color: #323232;
-  font-size: 1.8rem;
+  font-size: 1.6rem;
+}
+.app-bar-autocomplete >>> .v-menu__content {
+  font-family: Roboto, sans-serif !important;
 }
 .app-bar-autocomplete >>> input {
   padding-left: 0px !important;

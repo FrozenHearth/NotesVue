@@ -22,7 +22,7 @@
           :spellcheck="false"
           auto-grow
           full-width
-          class="desc-text-field"
+          class="desc-text-field roboto-font"
           autocomplete="off"
           label="Describe your notes..."
           v-model="details.description"
