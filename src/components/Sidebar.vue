@@ -8,7 +8,11 @@
       </template>
       <v-list>
         <v-list-item
-          :class="[clickedIdx === index ? 'sidebar-active-list-item' : '']"
+          :class="[
+            clickedIdx === index && $route.name !== 'AddNotes'
+              ? 'sidebar-active-list-item'
+              : ''
+          ]"
           @click="handleListItem(item, index)"
           v-for="(item, index) in items"
           :key="item.title"
@@ -19,9 +23,7 @@
           </v-list-item-icon>
 
           <v-list-item-content class="sidebar-list-item-content">
-            <v-list-item-title class="sidebar-list-item-title">{{
-              item.title
-            }}</v-list-item-title>
+            <v-list-item-title class="sidebar-list-item-title">{{ item.title }}</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
       </v-list>
@@ -45,6 +47,13 @@ export default {
   methods: {
     handleListItem(item, index) {
       this.clickedIdx = index;
+      if (this.clickedIdx === 0) {
+        this.$router.push("/notes");
+      } else if (this.clickedIdx === 1) {
+        this.$router.push("/deleted");
+      } else if (this.clickedIdx === 2) {
+        this.$router.push("/starred");
+      }
     }
   }
 };

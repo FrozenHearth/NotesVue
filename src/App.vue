@@ -1,11 +1,11 @@
 <template>
   <v-app id="inspire" class="default-font">
     <Sidebar />
-    <v-content class="main-content">
+    <v-main class="main-content">
       <SearchBar />
 
-      <router-view> </router-view>
-    </v-content>
+      <router-view></router-view>
+    </v-main>
   </v-app>
 </template>
 
@@ -22,6 +22,10 @@ export default {
 </script>
 
 <style>
+html {
+  /* Prevent default scrollbar container */
+  overflow-y: auto !important;
+}
 .default-font {
   font-family: Varta, sans-serif !important;
 }
