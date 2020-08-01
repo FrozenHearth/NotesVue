@@ -5,7 +5,8 @@
       class="publish-btn text-capitalize"
       color="primary"
       @click="handleSubmitNotes"
-    >Publish</v-btn>
+      >Publish</v-btn
+    >
     <v-form class="d-flex flex-column align-center">
       <v-col cols="12">
         <v-text-field
@@ -34,6 +35,7 @@
 
 <script>
 import { mapActions } from "vuex";
+import { format } from "date-fns";
 export default {
   name: "AddNotes",
   data() {
@@ -57,9 +59,6 @@ export default {
       deep: true
     }
   },
-  mounted() {
-    console.log(this.notesData);
-  },
   methods: {
     handleSubmitNotes() {
       const { title, description } = this.details;
@@ -68,7 +67,7 @@ export default {
         this.notesData = {
           title: title,
           description: description,
-          dateCreated: new Date()
+          dateCreated: format(new Date(), "dd/MM/yyyy")
         };
         this.actionSubmitNotes(this.notesData).then(() => {
           this.$router.push({ name: "Notes" });
