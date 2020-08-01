@@ -7,10 +7,40 @@ const routes = [
   {
     path: "/",
     name: "Home",
+    redirect: "/notes"
+  },
+  {
+    path: "/notes",
+    name: "Notes",
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: () => import(/* webpackChunkName: "home" */ "../views/Home.vue")
+  },
+  {
+    path: "/deleted",
+    name: "Notes",
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () => import(/* webpackChunkName: "home" */ "../views/Home.vue")
+  },
+  {
+    path: "/starred",
+    name: "Notes",
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () => import(/* webpackChunkName: "home" */ "../views/Home.vue")
+  },
+  {
+    path: "/add-notes",
+    name: "AddNotes",
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () =>
+      import(/* webpackChunkName: "home" */ "../views/AddNotes.vue")
   }
 ];
 
