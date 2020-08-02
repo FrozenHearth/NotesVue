@@ -11,11 +11,17 @@ export default new Vuex.Store({
   mutations: {
     submitNotes(state, payload) {
       state.notesList.push(payload);
+    },
+    editNotes(state, payload) {
+      state.notesList.splice(state.notesList[payload.id], 1, payload);
     }
   },
   actions: {
     actionSubmitNotes({ commit }, payload) {
       commit("submitNotes", payload);
+    },
+    actionEditNotes({ commit }, payload) {
+      commit("editNotes", payload);
     }
   },
   modules: {},
