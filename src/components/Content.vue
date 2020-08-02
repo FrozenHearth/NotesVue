@@ -1,9 +1,9 @@
 <template>
   <v-container>
-    <v-row class="content-row">
-      <template v-for="(note, index) in notesList">
-        <v-col cols="4" class="content-column" :key="index">
-          <v-card class="pa-2 content-card">
+    <v-row v-if="notesList.length > 0" class="content-row">
+      <template v-for="note in notesList">
+        <v-col cols="4" class="content-column" :key="note.id">
+          <v-card @click="goToEditNotes(note.id)" class="pa-2 content-card">
             <v-card-subtitle class="content-card-subtitle-top">{{
               note.dateCreated
             }}</v-card-subtitle>
@@ -17,15 +17,45 @@
         </v-col>
       </template>
     </v-row>
+    <div
+      v-if="notesList.length === 0"
+      class="img-content-container d-flex flex-column align-center"
+    >
+      <v-img
+        class="default-img"
+        width="500"
+        height="500"
+        :src="noNotesImg"
+      ></v-img>
+      <h2 class="img-content-text">
+        No notes added yet. Click on Add New Note to create a new note!
+      </h2>
+    </div>
   </v-container>
 </template>
 
 <script>
 import { mapState } from "vuex";
+import TakingNotesIllus from "../assets/logos/taking_notes.png";
 export default {
   name: "Content",
   computed: {
     ...mapState(["notesList"])
+  },
+  data() {
+    return {
+      noNotesImg: TakingNotesIllus
+    };
+  },
+  methods: {
+    goToEditNotes(id) {
+      this.$router.push({
+        name: "EditNotes",
+        params: {
+          id
+        }
+      });
+    }
   }
 };
 </script>
@@ -69,5 +99,9 @@ export default {
   border-right: 4px white solid;
   border-top: 26px white solid;
   border-bottom: 24px white solid;
+}
+.img-content-text {
+  font-weight: 400;
+  font-size: 1.8rem;
 }
 </style>
