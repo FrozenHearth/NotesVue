@@ -3,11 +3,11 @@
     app
     height="65"
     class="app-bar-search-container roboto-font"
-    :class="[$route.name === 'AddNotes' ? 'no-box-shadow' : '']"
+    :class="[$route.name === 'AddNotes' || $route.name === 'EditNotes' ? 'no-box-shadow' : '']"
     color="default"
   >
     <v-autocomplete
-      v-if="$route.name !== 'AddNotes'"
+      v-if="$route.name !== 'AddNotes' && $route.name !== 'EditNotes'"
       :menu-props="{ maxWidth: 1200 }"
       class="app-bar-autocomplete roboto-font"
       v-model="searchText"
@@ -28,37 +28,31 @@
       </template>
     </v-autocomplete>
 
-    <h1 v-if="$route.name === 'AddNotes'" class="app-title">Notes</h1>
+    <h1 v-if="$route.name === 'AddNotes' || $route.name === 'EditNotes'" class="app-title">Notes</h1>
   </v-app-bar>
 </template>
 
 <script>
+import { mapState } from "vuex";
 export default {
   name: "SearchBar",
   data() {
     return {
-      searchResults: [
-        {
-          text: "Search One",
-          id: 0
-        },
-        {
-          text: "Search Two",
-          id: 1
-        },
-        {
-          text: "Search Three",
-          id: 2
-        }
-      ],
       search: "",
-      searchText: ""
+      searchText: "",
+      searchResults: []
     };
   },
-  watch: {
-    search() {
-      console.log(this.search);
-    }
+  computed: {
+    ...mapState(["notesList"])
+  },
+  mounted() {
+    this.searchResults = this.notesList.map(note => {
+      return {
+        text: note.title,
+        id: note.id
+      };
+    });
   }
 };
 </script>

@@ -97,7 +97,6 @@ export default {
     if (id) {
       this.mode = "edit";
       this.details = this.notesList.filter(note => note.id === id)[0];
-      delete this.details.dateCreated;
     }
   },
   computed: {
