@@ -4,15 +4,17 @@
       <template v-for="note in notesList">
         <v-col cols="4" class="content-column" :key="note.id">
           <v-card @click="goToEditNotes(note.id)" class="pa-2 content-card">
-            <v-card-subtitle class="content-card-subtitle-top">{{
+            <v-card-subtitle class="content-card-subtitle-top">
+              {{
               note.dateCreated
-            }}</v-card-subtitle>
-            <v-card-title class="content-card-title">{{
+              }}
+            </v-card-subtitle>
+            <v-card-title class="content-card-title">
+              {{
               note.title
-            }}</v-card-title>
-            <div class="grey--text  content-card-description roboto-font">
-              {{ note.description }}
-            </div>
+              }}
+            </v-card-title>
+            <div class="grey--text content-card-description roboto-font">{{ note.description }}</div>
           </v-card>
         </v-col>
       </template>
@@ -21,15 +23,8 @@
       v-if="notesList.length === 0"
       class="img-content-container d-flex flex-column align-center"
     >
-      <v-img
-        class="default-img"
-        width="500"
-        height="500"
-        :src="noNotesImg"
-      ></v-img>
-      <h2 class="img-content-text">
-        No notes added yet. Click on Add New Note to create a new note!
-      </h2>
+      <v-img class="default-img" width="500" height="500" :src="noNotesImg"></v-img>
+      <h2 class="img-content-text">No notes added yet. Click on Add New Note to create a new note!</h2>
     </div>
   </v-container>
 </template>
@@ -38,7 +33,7 @@
 import { mapState } from "vuex";
 import TakingNotesIllus from "../assets/logos/taking_notes.png";
 export default {
-  name: "Content",
+  name: "ContentList",
   computed: {
     ...mapState(["notesList"])
   },

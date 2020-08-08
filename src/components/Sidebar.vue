@@ -37,9 +37,9 @@ export default {
   data() {
     return {
       items: [
-        { title: "Notes", icon: "mdi-text" },
-        { title: "Deleted", icon: "mdi-delete" },
-        { title: "Starred", icon: "mdi-star-outline" }
+        { title: "Notes", icon: "mdi-text" }
+        // { title: "Deleted", icon: "mdi-delete" },
+        // { title: "Starred", icon: "mdi-star-outline" }
       ],
       clickedIdx: 0
     };
