@@ -13,7 +13,9 @@ export default new Vuex.Store({
       state.notesList.push(payload);
     },
     editNotes(state, payload) {
-      state.notesList.splice(state.notesList[payload.id], 1, payload);
+      let { notesList } = state;
+      const noteToUpdate = notesList.findIndex(note => note.id === payload.id);
+      notesList.splice(noteToUpdate, 1, payload);
     }
   },
   actions: {

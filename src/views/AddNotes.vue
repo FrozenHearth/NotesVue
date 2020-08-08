@@ -7,8 +7,7 @@
       class="publish-btn text-capitalize"
       color="primary"
       @click="handleSubmitNotes"
-      >Publish</v-btn
-    >
+    >Publish</v-btn>
     <v-btn
       v-if="mode === 'edit'"
       :loading="loading"
@@ -16,8 +15,7 @@
       class="publish-btn text-capitalize"
       color="primary"
       @click="handleSubmitEditedNotes"
-      >Publish</v-btn
-    >
+    >Publish</v-btn>
     <v-form class="d-flex flex-column align-center">
       <v-col cols="12">
         <v-text-field
@@ -48,9 +46,7 @@
       colored-border
       type="success"
       elevation="3"
-    >
-      {{ alertMsg }}
-    </v-alert>
+    >{{ alertMsg }}</v-alert>
     <v-alert
       v-if="editedNote"
       class="alert-top"
@@ -58,9 +54,7 @@
       colored-border
       type="success"
       elevation="3"
-    >
-      {{ alertMsg }}
-    </v-alert>
+    >{{ alertMsg }}</v-alert>
   </v-container>
 </template>
 
@@ -130,7 +124,7 @@ export default {
             setTimeout(() => {
               this.loadingAdd = false;
               this.$router.push({ name: "Notes" });
-            }, 1500);
+            }, 600);
           })
           .catch(err => {
             this.loadingAdd = false;
@@ -158,7 +152,7 @@ export default {
             setTimeout(() => {
               this.loading = false;
               this.$router.push({ name: "Notes" });
-            }, 1500);
+            }, 600);
           })
           .catch(err => {
             console.log(err);
