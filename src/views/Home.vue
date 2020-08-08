@@ -1,17 +1,17 @@
 <template>
   <div>
     <ContentTop />
-    <Content />
+    <ContentList />
   </div>
 </template>
 
 <script>
-import Content from "../components/Content";
+import ContentList from "../components/ContentList";
 import ContentTop from "../components/ContentTop";
 export default {
   name: "Home",
   components: {
-    Content,
+    ContentList,
     ContentTop
   }
 };
