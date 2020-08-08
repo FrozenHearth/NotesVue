@@ -33,26 +33,18 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapState, mapGetters } from "vuex";
 export default {
   name: "SearchBar",
   data() {
     return {
       search: "",
-      searchText: "",
-      searchResults: []
+      searchText: ""
     };
   },
   computed: {
-    ...mapState(["notesList"])
-  },
-  mounted() {
-    this.searchResults = this.notesList.map(note => {
-      return {
-        text: note.title,
-        id: note.id
-      };
-    });
+    ...mapState(["notesList"]),
+    ...mapGetters(["searchResults"])
   }
 };
 </script>

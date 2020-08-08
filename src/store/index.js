@@ -26,6 +26,16 @@ export default new Vuex.Store({
       commit("editNotes", payload);
     }
   },
+  getters: {
+    searchResults(state) {
+      return state.notesList.map(note => {
+        return {
+          text: note.title,
+          id: note.id
+        };
+      });
+    }
+  },
   modules: {},
   plugins: [createPersistedState()]
 });
