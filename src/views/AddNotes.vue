@@ -1,10 +1,20 @@
 <template>
   <v-container>
     <v-btn
+      v-if="mode === 'add'"
       :disabled="disableBtn"
+      :loading="loadingAdd"
       class="publish-btn text-capitalize"
       color="primary"
       @click="handleSubmitNotes"
+    >Publish</v-btn>
+    <v-btn
+      v-if="mode === 'edit'"
+      :loading="loading"
+      :disabled="disableBtn"
+      class="publish-btn text-capitalize"
+      color="primary"
+      @click="handleSubmitEditedNotes"
     >Publish</v-btn>
     <v-form class="d-flex flex-column align-center">
       <v-col cols="12">
@@ -21,7 +31,7 @@
           :spellcheck="false"
           auto-grow
           full-width
-          class="desc-text-field"
+          class="desc-text-field roboto-font"
           autocomplete="off"
           label="Describe your notes..."
           v-model="details.description"
@@ -29,11 +39,29 @@
         ></v-textarea>
       </v-col>
     </v-form>
+    <v-alert
+      v-if="createdNote"
+      class="alert-top"
+      border="bottom"
+      colored-border
+      type="success"
+      elevation="3"
+    >{{ alertMsg }}</v-alert>
+    <v-alert
+      v-if="editedNote"
+      class="alert-top"
+      border="left"
+      colored-border
+      type="success"
+      elevation="3"
+    >{{ alertMsg }}</v-alert>
   </v-container>
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapActions, mapState } from "vuex";
+import { format } from "date-fns";
+import { v4 as uuidv4 } from "uuid";
 export default {
   name: "AddNotes",
   data() {
@@ -43,7 +71,14 @@ export default {
         description: ""
       },
       disableBtn: true,
-      notesData: {}
+      notesData: {},
+      note: [],
+      mode: "add",
+      createdNote: false,
+      editedNote: false,
+      loading: false,
+      loadingAdd: false,
+      alertMsg: ""
     };
   },
   watch: {
@@ -58,24 +93,73 @@ export default {
     }
   },
   mounted() {
-    console.log(this.notesData);
+    const { id } = this.$route.params;
+    if (id) {
+      this.mode = "edit";
+      this.details = this.notesList.filter(note => note.id === id)[0];
+    }
+  },
+  computed: {
+    ...mapState(["notesList"])
   },
   methods: {
     handleSubmitNotes() {
+      this.loadingAdd = true;
       const { title, description } = this.details;
       if (title && description) {
         this.disableBtn = false;
         this.notesData = {
           title: title,
           description: description,
-          dateCreated: new Date()
+          dateCreated: format(new Date(), "dd/MM/yyyy"),
+          id: uuidv4()
         };
-        this.actionSubmitNotes(this.notesData).then(() => {
-          this.$router.push({ name: "Notes" });
-        });
+        this.actionSubmitNotes(this.notesData)
+          .then(() => {
+            this.createdNote = true;
+            this.alertMsg = "Note added successfully!";
+          })
+          .then(() => {
+            setTimeout(() => {
+              this.loadingAdd = false;
+              this.$router.push({ name: "Notes" });
+            }, 600);
+          })
+          .catch(err => {
+            this.loadingAdd = false;
+            console.log(err);
+          });
       }
     },
-    ...mapActions(["actionSubmitNotes"])
+    handleSubmitEditedNotes() {
+      this.loading = true;
+      const { title, description, id } = this.details;
+      if (title && description) {
+        this.disableBtn = false;
+        this.notesData = {
+          title: title,
+          description: description,
+          dateCreated: format(new Date(), "dd/MM/yyyy"),
+          id
+        };
+        this.actionEditNotes(this.notesData)
+          .then(() => {
+            this.editedNote = true;
+            this.alertMsg = "Edited note successfully!";
+          })
+          .then(() => {
+            setTimeout(() => {
+              this.loading = false;
+              this.$router.push({ name: "Notes" });
+            }, 600);
+          })
+          .catch(err => {
+            console.log(err);
+            this.loading = false;
+          });
+      }
+    },
+    ...mapActions(["actionSubmitNotes", "actionEditNotes"])
   }
 };
 </script>
@@ -120,5 +204,10 @@ export default {
   right: 2rem;
   top: -5rem;
   z-index: 5;
+}
+.alert-top {
+  right: 2rem;
+  position: fixed;
+  top: 9rem;
 }
 </style>

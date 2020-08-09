@@ -1,5 +1,6 @@
 import Vue from "vue";
 import Vuex from "vuex";
+import createPersistedState from "vuex-persistedstate";
 
 Vue.use(Vuex);
 
@@ -10,14 +11,37 @@ export default new Vuex.Store({
   mutations: {
     submitNotes(state, payload) {
       state.notesList.push(payload);
-      console.log(state.notesList);
+    },
+    editNotes(state, payload) {
+      let { notesList } = state;
+      const noteToUpdate = notesList.findIndex(note => note.id === payload.id);
+      notesList.splice(noteToUpdate, 1, payload);
+    },
+    deleteNote(state, id) {
+      state.notesList = state.notesList.filter(note => note.id !== id);
     }
   },
   actions: {
     actionSubmitNotes({ commit }, payload) {
-      console.log(payload);
       commit("submitNotes", payload);
+    },
+    actionEditNotes({ commit }, payload) {
+      commit("editNotes", payload);
+    },
+    actionDeleteNote({ commit }, id) {
+      commit("deleteNote", id);
     }
   },
-  modules: {}
+  getters: {
+    searchResults(state) {
+      return state.notesList.map(note => {
+        return {
+          text: note.title,
+          id: note.id
+        };
+      });
+    }
+  },
+  modules: {},
+  plugins: [createPersistedState()]
 });
