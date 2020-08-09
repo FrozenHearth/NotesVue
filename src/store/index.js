@@ -16,6 +16,9 @@ export default new Vuex.Store({
       let { notesList } = state;
       const noteToUpdate = notesList.findIndex(note => note.id === payload.id);
       notesList.splice(noteToUpdate, 1, payload);
+    },
+    deleteNote(state, id) {
+      state.notesList = state.notesList.filter(note => note.id !== id);
     }
   },
   actions: {
@@ -24,6 +27,9 @@ export default new Vuex.Store({
     },
     actionEditNotes({ commit }, payload) {
       commit("editNotes", payload);
+    },
+    actionDeleteNote({ commit }, id) {
+      commit("deleteNote", id);
     }
   },
   getters: {
