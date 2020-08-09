@@ -7,7 +7,7 @@ name: My workflow
 
 on:
   push:
-    branches: [ master ]
+    branches: [master]
 
 jobs:
   my-job:
@@ -17,5 +17,5 @@ jobs:
       - name: Deploy to notes-vue.surge.sh
         uses: dswistowski/surge-sh-action@v1
         with:
-          domain: 'notes-vue.surge.sh'
-          project: './dist'
+          domain: "notes-vue.surge.sh"
+          project: "../../dist"
