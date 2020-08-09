@@ -3,12 +3,23 @@
     <v-row v-if="notesList.length > 0" class="content-row">
       <template v-for="note in notesList">
         <v-col cols="4" class="content-column" :key="note.id">
-          <v-card @click="goToEditNotes(note.id)" class="pa-2 content-card">
-            <v-card-subtitle class="content-card-subtitle-top">
-              {{
-              note.dateCreated
-              }}
-            </v-card-subtitle>
+          <v-card class="pa-2 content-card">
+            <div class="d-flex align-center">
+              <v-card-subtitle class="content-card-subtitle-top">
+                {{
+                note.dateCreated
+                }}
+              </v-card-subtitle>
+
+              <div class="ml-auto">
+                <v-btn icon @click="goToEditNotes(note.id)">
+                  <v-icon size="20">mdi-pencil</v-icon>
+                </v-btn>
+                <v-btn icon>
+                  <v-icon size="20" @click="deleteNote(note.id)">mdi-delete</v-icon>
+                </v-btn>
+              </div>
+            </div>
             <v-card-title class="content-card-title">
               {{
               note.title
@@ -26,21 +37,31 @@
       <v-img class="default-img" width="500" height="500" :src="noNotesImg"></v-img>
       <h2 class="img-content-text">No notes added yet. Click on Add New Note to create a new note!</h2>
     </div>
+    <v-alert
+      v-if="showAlert"
+      class="alert-top"
+      border="bottom"
+      colored-border
+      type="success"
+      elevation="3"
+    >{{ alertMsg }}</v-alert>
   </v-container>
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapState, mapActions } from "vuex";
 import TakingNotesIllus from "../assets/logos/taking_notes.png";
 export default {
   name: "ContentList",
-  computed: {
-    ...mapState(["notesList"])
-  },
   data() {
     return {
-      noNotesImg: TakingNotesIllus
+      noNotesImg: TakingNotesIllus,
+      showAlert: false,
+      alertMsg: ""
     };
+  },
+  computed: {
+    ...mapState(["notesList"])
   },
   methods: {
     goToEditNotes(id) {
@@ -50,7 +71,19 @@ export default {
           id
         }
       });
-    }
+    },
+    deleteNote(id) {
+      this.actionDeleteNote(id)
+        .then(() => {
+          this.alertMsg = "Deleted note successfully!";
+          this.showAlert = true;
+          setTimeout(() => {
+            this.showAlert = false;
+          }, 1000);
+        })
+        .catch(err => console.log(err));
+    },
+    ...mapActions(["actionDeleteNote"])
   }
 };
 </script>
@@ -98,5 +131,10 @@ export default {
 .img-content-text {
   font-weight: 400;
   font-size: 1.8rem;
+}
+.alert-top {
+  right: 2rem;
+  position: fixed;
+  top: 9rem;
 }
 </style>
