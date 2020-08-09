@@ -1,0 +1,23 @@
+# This is a basic workflow to help you get started with Actions
+
+name: My workflow
+
+# Controls when the action will run. Triggers the workflow on push or pull request
+# events but only for the master branch
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  my-job:
+    name: My job
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to notes-vue.surge.sh
+        uses: dswistowski/surge-sh-action@v1
+        with:
+          domain: 'notes-vue.surge.sh'
+          project: './dist'
