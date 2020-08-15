@@ -3,29 +3,29 @@
     <v-row v-if="notesList.length > 0" class="content-row">
       <template v-for="note in notesList">
         <v-col cols="4" class="content-column" :key="note.id">
-          <v-card class="pa-2 content-card">
-            <div class="d-flex align-center">
-              <v-card-subtitle class="content-card-subtitle-top">
-                {{
-                note.dateCreated
-                }}
-              </v-card-subtitle>
-
-              <div class="ml-auto">
-                <v-btn icon @click="goToEditNotes(note.id)">
-                  <v-icon size="20">mdi-pencil</v-icon>
-                </v-btn>
-                <v-btn icon>
-                  <v-icon size="20" @click="deleteNote(note.id)">mdi-delete</v-icon>
-                </v-btn>
-              </div>
+          <v-card class="pa-2 content-card p-relative">
+            <div class="d-flex align-center"></div>
+            <v-card-title class="break-word content-card-title">{{ note.title }}</v-card-title>
+            <div
+              class="grey--text content-card-description roboto-font"
+            >{{ note.description | truncate(80) }}</div>
+            <v-card-subtitle class="content-card-subtitle p-absolute mt-0">{{ note.dateCreated }}</v-card-subtitle>
+            <div class="p-absolute content-card-actions-container">
+              <!-- Bookmarks -->
+              <v-btn v-if="!note.bookmarked" icon @click="bookmarkNotes(note)">
+                <v-icon color="primary" size="20">mdi-bookmark-outline</v-icon>
+              </v-btn>
+              <v-btn v-if="note.bookmarked" icon @click="removeBookmark(note)">
+                <v-icon color="primary" size="20">mdi-bookmark</v-icon>
+              </v-btn>
+              <!-- End bookmarks -->
+              <v-btn color="info" icon @click="goToEditNotes(note.id)">
+                <v-icon size="20">mdi-pencil</v-icon>
+              </v-btn>
+              <v-btn color="error" icon>
+                <v-icon size="20" @click="deleteNote(note.id)">mdi-delete-outline</v-icon>
+              </v-btn>
             </div>
-            <v-card-title class="content-card-title">
-              {{
-              note.title
-              }}
-            </v-card-title>
-            <div class="grey--text content-card-description roboto-font">{{ note.description }}</div>
           </v-card>
         </v-col>
       </template>
@@ -50,6 +50,7 @@
 
 <script>
 import { mapState, mapActions } from "vuex";
+import { format } from "date-fns";
 import TakingNotesIllus from "../assets/logos/taking_notes.png";
 export default {
   name: "ContentList",
@@ -57,7 +58,9 @@ export default {
     return {
       noNotesImg: TakingNotesIllus,
       showAlert: false,
-      alertMsg: ""
+      alertMsg: "",
+      clickedNoteId: "",
+      notesData: {}
     };
   },
   computed: {
@@ -83,41 +86,82 @@ export default {
         })
         .catch(err => console.log(err));
     },
-    ...mapActions(["actionDeleteNote"])
+    bookmarkNotes(note) {
+      const { title, description, id } = note;
+      this.notesData = {
+        title,
+        description,
+        dateCreated: format(new Date(), `LLL d, yyyy`),
+        id,
+        bookmarked: true
+      };
+      this.actionEditNotes(this.notesData)
+        .then(res => {
+          note.bookmarked = true;
+          console.log(res);
+        })
+        .catch(err => {
+          note.bookmarked = false;
+          console.log(err);
+        });
+    },
+    removeBookmark(note) {
+      const { title, description, id } = note;
+      this.notesData = {
+        title,
+        description,
+        dateCreated: format(new Date(), `LLL d, yyyy`),
+        id,
+        bookmarked: false
+      };
+      this.actionEditNotes(this.notesData)
+        .then(res => {
+          note.bookmarked = false;
+          console.log(res);
+        })
+        .catch(err => {
+          note.bookmarked = true;
+          console.log(err);
+        });
+    },
+    ...mapActions(["actionDeleteNote", "actionEditNotes"])
   }
 };
 </script>
 
 <style scoped>
 .content-row {
-  padding: 16px 48px;
-  height: 500px;
+  padding: 16px 32px;
+  height: 62rem;
   overflow-y: auto;
   margin-right: 0.1rem !important;
+  margin-bottom: 5rem;
 }
 .content-column {
   flex-basis: 21%;
 }
 .content-card {
   background: #fff;
-  height: 22rem;
-  width: 23.5rem;
+  width: 31rem;
   margin-right: 0.4rem;
+  min-height: 27rem;
   /* box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24) !important; */
   /* 0px 0px 0px -2px rgb(247 247 247 / 20%), 1px 0px 0px -1px rgb(255 255 255 / 14%), 1px 3px 6px -2px rgb(175 175 175) */
 }
-.content-card-subtitle-top {
+.content-card-subtitle {
   font-size: 1.4rem;
+  margin-bottom: 1rem;
+  bottom: 0;
 }
 .content-card-title {
   font-family: Poppins, sans-serif !important;
-  font-size: 1.8rem;
+  font-size: 1.6rem;
   font-weight: 400;
-  padding: 8px 16px;
 }
 .content-card-description {
   font-size: 1.6rem;
   padding: 8px 16px;
+  margin-bottom: 1rem;
 }
 ::-webkit-scrollbar {
   width: 8px;
@@ -136,5 +180,15 @@ export default {
   right: 2rem;
   position: fixed;
   top: 9rem;
+}
+.content-card-actions-container {
+  padding: 0 1rem;
+  bottom: 1.5rem;
+  right: 0;
+}
+.bookmark-button {
+  right: -1rem;
+  cursor: pointer;
+  bottom: -1.5rem;
 }
 </style>
