@@ -17,6 +17,7 @@
       item-text="text"
       item-value="id"
       label="Search"
+      clearable
       prepend-icon="mdi-magnify"
       append-icon
       solo
@@ -51,8 +52,8 @@ export default {
 
 <style scoped>
 .app-bar-search-container {
-  max-width: calc(100% - 256px);
-  left: 256px !important;
+  max-width: calc(100% - 200px);
+  left: 200px !important;
   box-shadow: 12px -12px 20px 1px rgba(0, 0, 0, 0.6) !important;
 }
 .app-bar-search-container
@@ -90,6 +91,11 @@ export default {
 .app-bar-autocomplete >>> input {
   padding-left: 0px !important;
   padding-bottom: 2.5rem !important;
+}
+
+.app-bar-autocomplete >>> .v-input__append-inner {
+  position: relative;
+  bottom: 0.5rem;
 }
 .no-box-shadow {
   box-shadow: none !important;

@@ -4,7 +4,7 @@
       v-if="mode === 'add'"
       :disabled="disableBtn"
       :loading="loadingAdd"
-      class="publish-btn text-capitalize"
+      class="p-absolute publish-btn text-capitalize"
       color="primary"
       @click="handleSubmitNotes"
     >Publish</v-btn>
@@ -12,7 +12,7 @@
       v-if="mode === 'edit'"
       :loading="loading"
       :disabled="disableBtn"
-      class="publish-btn text-capitalize"
+      class="p-absolute publish-btn text-capitalize"
       color="primary"
       @click="handleSubmitEditedNotes"
     >Publish</v-btn>
@@ -21,6 +21,7 @@
         <v-text-field
           class="title-text-field"
           solo
+          :maxlength="100"
           autocomplete="off"
           label="Title"
           v-model="details.title"
@@ -111,8 +112,9 @@ export default {
         this.notesData = {
           title: title,
           description: description,
-          dateCreated: format(new Date(), "dd/MM/yyyy"),
-          id: uuidv4()
+          dateCreated: format(new Date(), `LLL d, yyyy`),
+          id: uuidv4(),
+          bookmarked: false
         };
         this.actionSubmitNotes(this.notesData)
           .then(() => {
@@ -133,14 +135,15 @@ export default {
     },
     handleSubmitEditedNotes() {
       this.loading = true;
-      const { title, description, id } = this.details;
+      const { title, description, id, bookmarked } = this.details;
       if (title && description) {
         this.disableBtn = false;
         this.notesData = {
           title: title,
           description: description,
-          dateCreated: format(new Date(), "dd/MM/yyyy"),
-          id
+          dateCreated: format(new Date(), `LLL d, yyyy`),
+          id,
+          bookmarked
         };
         this.actionEditNotes(this.notesData)
           .then(() => {
@@ -200,7 +203,6 @@ export default {
   font-size: 1.4rem !important;
   font-weight: 400;
   font-family: Poppins, sans-serif;
-  position: absolute;
   right: 2rem;
   top: -5rem;
   z-index: 5;
