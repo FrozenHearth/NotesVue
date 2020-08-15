@@ -1,7 +1,7 @@
 <template>
   <v-app id="inspire">
     <Sidebar />
-    <v-main class="main-content">
+    <v-main class="main-content p-absolute">
       <SearchBar />
 
       <router-view></router-view>
@@ -43,7 +43,15 @@ html {
   left: 342px !important;
 }
 .main-content {
-  position: absolute;
   width: 100vw;
+}
+.p-absolute {
+  position: absolute !important;
+}
+.p-relative {
+  position: relative;
+}
+.break-word {
+  word-break: break-word !important;
 }
 </style>

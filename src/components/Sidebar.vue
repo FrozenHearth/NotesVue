@@ -1,6 +1,6 @@
 <template>
-  <v-card class="sidebar-card" width="256">
-    <v-navigation-drawer app class="primary" permanent left>
+  <v-card class="sidebar-card" width="200">
+    <v-navigation-drawer app class="primary sidebar-drawer" permanent left>
       <template v-slot:prepend>
         <div class="sidebar-title-container primaryDarker">
           <h1 class="sidebar-title">Your Notes</h1>
@@ -37,9 +37,9 @@ export default {
   data() {
     return {
       items: [
-        { title: "Notes", icon: "mdi-text" }
+        { title: "Notes", icon: "mdi-text" },
         // { title: "Deleted", icon: "mdi-delete" },
-        // { title: "Starred", icon: "mdi-star-outline" }
+        { title: "Bookmarked", icon: "mdi-bookmark-outline" }
       ],
       clickedIdx: 0
     };
@@ -50,9 +50,7 @@ export default {
       if (this.clickedIdx === 0) {
         this.$router.push("/notes");
       } else if (this.clickedIdx === 1) {
-        this.$router.push("/deleted");
-      } else if (this.clickedIdx === 2) {
-        this.$router.push("/starred");
+        this.$router.push("/bookmarked");
       }
     }
   }
@@ -62,9 +60,12 @@ export default {
 <style lang="scss" scoped>
 .sidebar-card {
   border-radius: 0 !important;
-  max-width: 256px !important;
+  max-width: 200px !important;
   display: inline-block;
   height: 100%;
+}
+.sidebar-drawer {
+  width: 23rem !important;
 }
 .sidebar-title-container {
   box-shadow: 12px -12px 20px 1px rgba(0, 0, 0, 0.6) !important;

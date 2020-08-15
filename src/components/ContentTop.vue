@@ -1,12 +1,15 @@
 <template>
   <v-container class="top-container">
     <v-btn
+      fab
+      fixed
+      right
+      bottom
       @click="$router.push({ name: 'AddNotes' })"
-      class="text-capitalize top-btn default-font"
+      class="top-btn default-font"
       color="primary"
-      text
     >
-      <v-icon left>mdi-plus-circle-outline</v-icon>Add New Note
+      <v-icon>mdi-plus</v-icon>
     </v-btn>
   </v-container>
 </template>
@@ -28,7 +31,6 @@ export default {
 .top-btn {
   font-size: 1.4rem;
   font-weight: 500;
-  letter-spacing: 0.5px;
-  margin-right: 3rem;
+  bottom: 4rem;
 }
 </style>
