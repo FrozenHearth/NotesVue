@@ -23,4 +23,5 @@ jobs:
     # Runs a single command using the runners shell
     - name: Run a multi-line script
       run: | 
-            sudo npm i -g @vue/cli && rm -rf node_modules package-lock.json && sudo npm install -g && rm -rf dist && npm run build
+            ls &&
+            sudo npm install -g && rm -rf dist && npm ci
