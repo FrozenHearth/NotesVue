@@ -27,7 +27,9 @@ jobs:
             sudo npm install -g
     - name: Install dev dependencies
       run: |
-            npm i --only-dev && ls
-    - name: Remove dist
+            npm i --only-dev
+    - name: Build for prod
       run: |
-           npm run build && ls
+           rm -rf build && npm run build && cd dist/
+    - name: Deploy to surge
+      run:  surge ./dist ${{ secrets.SURGE_DOMAIN }} --token ${{ secrets.SURGE_TOKEN }}
