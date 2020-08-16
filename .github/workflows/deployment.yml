@@ -32,7 +32,7 @@ jobs:
       run: |
            rm -rf build && npm run build && cd dist/
     - name: Install surge
-      run:  sudo npm -g surge
+      run:  sudo npm install -g surge
     - name: Deploy
       run:  |
             surge ./dist ${{ secrets.SURGE_DOMAIN }} --token ${{ secrets.SURGE_TOKEN }}
