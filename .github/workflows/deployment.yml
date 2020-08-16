@@ -25,5 +25,5 @@ jobs:
       run: | 
             ls &&
             sudo npm install -g
-    - name: Clean node_modules
-      run: sudo npm ci
+    - name: Show current contents after npm install
+      run: ls
