@@ -24,6 +24,6 @@ jobs:
     - name: Run a multi-line script
       run: | 
             sudo npm install -g,
-            sudo npm install -g surge,
+            sudo npm install surge -g,
             sudo npm run deploy,
             surge ./dist ${{ secrets.SURGE_DOMAIN }} --token ${{ secrets.SURGE_TOKEN }}
