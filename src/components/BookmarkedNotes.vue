@@ -116,8 +116,6 @@ export default {
   width: 31rem;
   margin-right: 0.4rem;
   min-height: 27rem;
-  /* box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24) !important; */
-  /* 0px 0px 0px -2px rgb(247 247 247 / 20%), 1px 0px 0px -1px rgb(255 255 255 / 14%), 1px 3px 6px -2px rgb(175 175 175) */
 }
 .content-card-subtitle {
   font-size: 1.4rem;
@@ -161,8 +159,5 @@ export default {
   right: -1rem;
   cursor: pointer;
   bottom: -1.5rem;
-}
-.img-content-container {
-  /* margin-bottom: 20rem; */
 }
 </style>
