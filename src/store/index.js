@@ -6,7 +6,8 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    notesList: []
+    notesList: [],
+    bookmarkedNotesList: []
   },
   mutations: {
     submitNotes(state, payload) {
@@ -40,6 +41,12 @@ export default new Vuex.Store({
           id: note.id
         };
       });
+    },
+    bookmarkedNotesList(state) {
+      state.bookmarkedNotesList = state.notesList.filter(
+        note => note.bookmarked
+      );
+      return state.bookmarkedNotesList;
     }
   },
   modules: {},

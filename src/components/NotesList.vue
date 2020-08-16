@@ -1,23 +1,34 @@
 <template>
   <v-container>
+    <!-- Notes List -->
     <v-row v-if="notesList.length > 0" class="content-row">
       <template v-for="note in notesList">
         <v-col cols="4" class="content-column" :key="note.id">
           <v-card class="pa-2 content-card p-relative">
             <div class="d-flex align-center"></div>
-            <v-card-title class="break-word content-card-title">{{ note.title }}</v-card-title>
+            <v-card-title class="break-word content-card-title">
+              {{
+              note.title
+              }}
+            </v-card-title>
             <div
               class="grey--text content-card-description roboto-font"
-            >{{ note.description | truncate(80) }}</div>
-            <v-card-subtitle class="content-card-subtitle p-absolute mt-0">{{ note.dateCreated }}</v-card-subtitle>
+            >{{ note.description | truncate(130) }}</div>
+            <v-card-subtitle class="content-card-subtitle p-absolute mt-0">
+              {{
+              note.dateCreated
+              }}
+            </v-card-subtitle>
             <div class="p-absolute content-card-actions-container">
               <!-- Bookmarks -->
-              <v-btn v-if="!note.bookmarked" icon @click="bookmarkNotes(note)">
-                <v-icon color="primary" size="20">mdi-bookmark-outline</v-icon>
-              </v-btn>
-              <v-btn v-if="note.bookmarked" icon @click="removeBookmark(note)">
-                <v-icon color="primary" size="20">mdi-bookmark</v-icon>
-              </v-btn>
+              <span v-if="$route.name === 'Notes'">
+                <v-btn v-if="!note.bookmarked" icon @click="bookmarkNotes(note)">
+                  <v-icon color="primary" size="20">mdi-bookmark-outline</v-icon>
+                </v-btn>
+                <v-btn v-if="note.bookmarked" icon @click="removeBookmark(note)">
+                  <v-icon color="primary" size="20">mdi-bookmark</v-icon>
+                </v-btn>
+              </span>
               <!-- End bookmarks -->
               <v-btn color="info" icon @click="goToEditNotes(note.id)">
                 <v-icon size="20">mdi-pencil</v-icon>
@@ -30,12 +41,16 @@
         </v-col>
       </template>
     </v-row>
+
     <div
       v-if="notesList.length === 0"
       class="img-content-container d-flex flex-column align-center"
     >
       <v-img class="default-img" width="500" height="500" :src="noNotesImg"></v-img>
-      <h2 class="img-content-text">No notes added yet. Click on Add New Note to create a new note!</h2>
+      <h2 class="img-content-text">
+        No notes added yet. Click on the
+        <v-icon size="24">mdi-plus-circle-outline</v-icon>&nbsp; button to create a new note!
+      </h2>
     </div>
     <v-alert
       v-if="showAlert"
@@ -49,11 +64,11 @@
 </template>
 
 <script>
-import { mapState, mapActions } from "vuex";
+import { mapState, mapActions, mapGetters } from "vuex";
 import { format } from "date-fns";
 import TakingNotesIllus from "../assets/logos/taking_notes.png";
 export default {
-  name: "ContentList",
+  name: "NotesList",
   data() {
     return {
       noNotesImg: TakingNotesIllus,
@@ -64,7 +79,8 @@ export default {
     };
   },
   computed: {
-    ...mapState(["notesList"])
+    ...mapState(["notesList"]),
+    ...mapGetters(["bookmarkedNotesList"])
   },
   methods: {
     goToEditNotes(id) {

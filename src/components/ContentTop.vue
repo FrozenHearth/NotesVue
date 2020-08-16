@@ -1,6 +1,7 @@
 <template>
   <v-container class="top-container">
     <v-btn
+      v-if="$route.name === 'Notes'"
       fab
       fixed
       right
@@ -32,5 +33,6 @@ export default {
   font-size: 1.4rem;
   font-weight: 500;
   bottom: 4rem;
+  right: 4rem;
 }
 </style>
