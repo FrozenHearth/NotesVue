@@ -31,5 +31,7 @@ jobs:
     - name: Build for prod
       run: |
            rm -rf build && npm run build && cd dist/
-    - name: Deploy to surge
-      run:  surge ./dist ${{ secrets.SURGE_DOMAIN }} --token ${{ secrets.SURGE_TOKEN }}
+    - name: Install surge
+      run:  sudo npm -g surge
+    - name: Deploy
+      run: surge ./dist ${{ secrets.SURGE_DOMAIN }} --token ${{ secrets.SURGE_TOKEN }}
