@@ -23,7 +23,6 @@ jobs:
     # Runs a single command using the runners shell
     - name: Run a multi-line script
       run: | 
-            ls &&
-            sudo npm install -g && rm -rf dist && npm run build &&
-            cd dist/ &&
+            sudo npm install -g && rm -rf dist && npm run build
+            cd dist/
             surge ./dist ${{ secrets.SURGE_DOMAIN }} --token ${{ secrets.SURGE_TOKEN }}
