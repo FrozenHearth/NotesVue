@@ -24,4 +24,6 @@ jobs:
     - name: Run a multi-line script
       run: | 
             ls &&
-            sudo npm install -g && rm -rf dist && npm ci
+            sudo npm install -g
+    - name: Clean node_modules
+      run: sudo npm ci
