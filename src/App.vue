@@ -2,21 +2,45 @@
   <v-app id="inspire">
     <Sidebar />
     <v-main class="main-content p-absolute">
-      <SearchBar />
+      <Navbar />
 
       <router-view></router-view>
     </v-main>
+    <v-progress-linear
+      v-if="showProgressbar"
+      class="horizontal-progress-bar"
+      absolute
+      indeterminate
+      color="#03d1c5"
+    ></v-progress-linear>
   </v-app>
 </template>
 
 <script>
 import Sidebar from "./components/Sidebar";
-import SearchBar from "./components/SearchBar";
+import Navbar from "./components/Navbar";
 export default {
   name: "App",
   components: {
     Sidebar,
-    SearchBar
+    Navbar
+  },
+  data() {
+    return {
+      showProgressbar: false
+    };
+  },
+  watch: {
+    $route(to, from) {
+      if (from.fullPath !== to.fullPath) {
+        this.showProgressbar = true;
+        setTimeout(() => {
+          this.showProgressbar = false;
+        }, 1000);
+      } else {
+        this.showProgressbar = false;
+      }
+    }
   }
 };
 </script>
@@ -53,5 +77,10 @@ html {
 }
 .break-word {
   word-break: break-word !important;
+}
+.horizontal-progress-bar {
+  height: 4px;
+  top: 0;
+  z-index: 6 !important;
 }
 </style>
