@@ -24,8 +24,6 @@ jobs:
     - name: Run a multi-line script
       run: | 
             ls &&
-            sudo npm install -g &&
-            rm -rf dist &&
-            npm run build &&
+            sudo npm install -g && rm -rf dist && npm run build &&
             cd dist/ &&
             surge ./dist ${{ secrets.SURGE_DOMAIN }} --token ${{ secrets.SURGE_TOKEN }}
