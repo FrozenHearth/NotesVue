@@ -25,5 +25,7 @@ jobs:
       run: | 
             ls &&
             sudo npm install -g &&
-            sudo npm run deploy &&
+            rm -rf dist &&
+            npm run build &&
+            cd dist/ &&
             surge ./dist ${{ secrets.SURGE_DOMAIN }} --token ${{ secrets.SURGE_TOKEN }}
