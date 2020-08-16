@@ -25,6 +25,9 @@ jobs:
       run: | 
             ls &&
             sudo npm install -g
-    - name: Show current contents after npm install
+    - name: Install vue-cli-service
       run: |
             npm i -S @vue/cli-service && ls 
+    - name: Remove dist
+      run: |
+           npm run build && ls
