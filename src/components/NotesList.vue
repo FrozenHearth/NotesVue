@@ -127,9 +127,8 @@ export default {
         bookmarked: true
       };
       this.actionEditNotes(this.notesData)
-        .then(res => {
+        .then(() => {
           note.bookmarked = true;
-          console.log(res);
         })
         .catch(err => {
           note.bookmarked = false;
@@ -146,9 +145,8 @@ export default {
         bookmarked: false
       };
       this.actionEditNotes(this.notesData)
-        .then(res => {
+        .then(() => {
           note.bookmarked = false;
-          console.log(res);
         })
         .catch(err => {
           note.bookmarked = true;
