@@ -56,8 +56,8 @@
     >
       <v-img
         class="default-img"
-        width="500"
-        height="500"
+        width="50%"
+        height="50%"
         :src="noNotesImg"
       ></v-img>
       <h2 class="img-content-text">
@@ -174,8 +174,6 @@ export default {
   width: 31rem;
   margin-right: 0.4rem;
   min-height: 27rem;
-  /* box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24) !important; */
-  /* 0px 0px 0px -2px rgb(247 247 247 / 20%), 1px 0px 0px -1px rgb(255 255 255 / 14%), 1px 3px 6px -2px rgb(175 175 175) */
 }
 .content-card-subtitle {
   font-size: 1.4rem;
