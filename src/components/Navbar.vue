@@ -1,42 +1,47 @@
 <template>
-  <v-app-bar
-    app
-    height="65"
-    class="app-bar-search-container roboto-font"
-    :class="[$route.name === 'AddNotes' || $route.name === 'EditNotes' ? 'no-box-shadow' : '']"
-    color="default"
-  >
-    <v-autocomplete
-      v-if="$route.name !== 'AddNotes' && $route.name !== 'EditNotes'"
-      :menu-props="{ maxWidth: 1200 }"
-      class="app-bar-autocomplete roboto-font"
-      v-model="searchText"
-      :search-input.sync="search"
-      :items="searchResults"
-      return-object
-      item-text="text"
-      item-value="id"
-      label="Search"
-      clearable
-      prepend-icon="mdi-magnify"
-      append-icon
-      solo
+  <div>
+    <v-app-bar
+      app
+      height="65"
+      class="app-bar-search-container roboto-font"
+      :class="[$route.name === 'AddNotes' || $route.name === 'EditNotes' ? 'no-box-shadow' : '']"
+      color="default"
     >
-      <template v-slot:no-data>
-        <v-list-item>
-          <v-list-item-title>No Notes found</v-list-item-title>
-        </v-list-item>
-      </template>
-    </v-autocomplete>
+      <v-autocomplete
+        v-if="$route.name !== 'AddNotes' && $route.name !== 'EditNotes'"
+        :menu-props="{ maxWidth: 1200 }"
+        class="app-bar-autocomplete roboto-font"
+        v-model="searchText"
+        :search-input.sync="search"
+        :items="searchResults"
+        return-object
+        item-text="text"
+        item-value="id"
+        label="Search"
+        clearable
+        prepend-icon="mdi-magnify"
+        append-icon
+        solo
+      >
+        <template v-slot:no-data>
+          <v-list-item>
+            <v-list-item-title>No Notes found</v-list-item-title>
+          </v-list-item>
+        </template>
+      </v-autocomplete>
 
-    <h1 v-if="$route.name === 'AddNotes' || $route.name === 'EditNotes'" class="app-title">Notes</h1>
-  </v-app-bar>
+      <!-- <template v-slot:extension>
+      </template>-->
+
+      <h1 v-if="$route.name === 'AddNotes' || $route.name === 'EditNotes'" class="app-title">Notes</h1>
+    </v-app-bar>
+  </div>
 </template>
 
 <script>
 import { mapState, mapGetters } from "vuex";
 export default {
-  name: "SearchBar",
+  name: "Navbar",
   data() {
     return {
       search: "",

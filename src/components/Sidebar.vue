@@ -41,8 +41,15 @@ export default {
         // { title: "Deleted", icon: "mdi-delete" },
         { title: "Bookmarked", icon: "mdi-bookmark-outline" }
       ],
-      clickedIdx: 0
+      clickedIdx: null
     };
+  },
+  mounted() {
+    if (this.$route.path === "/") {
+      this.clickedIdx = 0;
+    } else if (this.$route.name === "Bookmarked") {
+      this.clickedIdx = 1;
+    }
   },
   methods: {
     handleListItem(item, index) {

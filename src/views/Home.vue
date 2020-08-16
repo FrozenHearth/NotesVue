@@ -1,17 +1,21 @@
 <template>
   <div>
     <ContentTop />
-    <ContentList />
+    <NotesList v-if="$route.name === 'Notes'" />
+    <BookmarkedNotes v-if="$route.name === 'Bookmarked'" />
   </div>
 </template>
 
 <script>
-import ContentList from "../components/ContentList";
+import NotesList from "../components/NotesList";
+import BookmarkedNotes from "../components/BookmarkedNotes";
+
 import ContentTop from "../components/ContentTop";
 export default {
   name: "Home",
   components: {
-    ContentList,
+    NotesList,
+    BookmarkedNotes,
     ContentTop
   }
 };
