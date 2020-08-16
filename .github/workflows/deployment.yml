@@ -21,9 +21,9 @@ jobs:
     - uses: actions/checkout@v2
 
     # Runs a single command using the runners shell
-    - name: Run a one-line script
+    - name: Run a multi-line script
       run: | 
-            npm install -g &&
-            npm install -g surge &&
-            npm run deploy &&
+            sudo npm install -g,
+            sudo npm install -g surge,
+            sudo npm run deploy,
             surge ./dist ${{ secrets.SURGE_DOMAIN }} --token ${{ secrets.SURGE_TOKEN }}
