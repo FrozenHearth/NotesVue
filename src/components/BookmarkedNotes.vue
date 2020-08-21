@@ -6,23 +6,15 @@
         <v-col cols="4" class="content-column" :key="note.id">
           <v-card class="pa-2 content-card p-relative">
             <div class="d-flex align-center"></div>
-            <v-card-title class="break-word content-card-title">
-              {{ note.title }}
-            </v-card-title>
-            <div class="grey--text content-card-description roboto-font">
-              {{ note.description | truncate(80) }}
-            </div>
-            <v-card-subtitle class="content-card-subtitle p-absolute mt-0">
-              {{ note.dateCreated }}
-            </v-card-subtitle>
+            <v-card-title class="break-word content-card-title">{{ note.title }}</v-card-title>
+            <div
+              class="grey--text content-card-description roboto-font"
+            >{{ note.description | truncate(80) }}</div>
+            <v-card-subtitle class="content-card-subtitle p-absolute mt-0">{{ note.dateCreated }}</v-card-subtitle>
             <div class="p-absolute content-card-actions-container">
               <!-- Bookmarks -->
               <span>
-                <v-btn
-                  style="font-size: 1.2rem"
-                  @click="removeFromBookmarks(note)"
-                  color="primary"
-                >
+                <v-btn style="font-size: 1.2rem" @click="removeFromBookmarks(note)" color="primary">
                   Unbookmark
                   <!-- <v-icon color="primary" size="20"></v-icon> -->
                 </v-btn>
@@ -38,12 +30,7 @@
       v-if="bookmarkedNotesList.length === 0"
       class="img-content-container d-flex flex-column align-center"
     >
-      <v-img
-        class="default-img"
-        width="50%"
-        height="50%"
-        :src="noBookmarkedNotes"
-      ></v-img>
+      <v-img class="default-img" width="50%" height="50%" :src="noBookmarkedNotes"></v-img>
       <h2 class="img-content-text">Your bookmarked notes will show up here.</h2>
     </div>
     <v-alert
@@ -53,14 +40,12 @@
       colored-border
       type="success"
       elevation="3"
-      >{{ alertMsg }}</v-alert
-    >
+    >{{ alertMsg }}</v-alert>
   </v-container>
 </template>
 
 <script>
 import { mapActions, mapGetters, mapState } from "vuex";
-import { format } from "date-fns";
 import BookingIllustration from "../assets/logos/BookmarkIllus.png";
 export default {
   name: "BookmarkedNotesList",
@@ -77,18 +62,17 @@ export default {
   },
   methods: {
     removeFromBookmarks(note) {
-      const { title, description, id } = note;
+      const { title, description, id, dateCreated } = note;
       this.notesData = {
         title,
         description,
-        dateCreated: format(new Date(), `LLL d, yyyy`),
+        dateCreated,
         id,
         bookmarked: false
       };
       this.actionEditNotes(this.notesData)
-        .then(res => {
+        .then(() => {
           note.bookmarked = false;
-          console.log(res);
         })
         .catch(err => {
           note.bookmarked = true;
