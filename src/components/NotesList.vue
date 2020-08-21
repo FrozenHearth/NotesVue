@@ -6,32 +6,18 @@
         <v-col cols="4" class="content-column" :key="note.id">
           <v-card class="pa-2 content-card p-relative">
             <div class="d-flex align-center"></div>
-            <v-card-title class="break-word content-card-title">
-              {{ note.title }}
-            </v-card-title>
-            <div class="grey--text content-card-description roboto-font">
-              {{ note.description | truncate(130) }}
-            </div>
-            <v-card-subtitle class="content-card-subtitle p-absolute mt-0">
-              {{ note.dateCreated }}
-            </v-card-subtitle>
+            <v-card-title class="break-word content-card-title">{{ note.title }}</v-card-title>
+            <div
+              class="grey--text content-card-description roboto-font"
+            >{{ note.description | truncate(130) }}</div>
+            <v-card-subtitle class="content-card-subtitle p-absolute mt-0">{{ note.dateCreated }}</v-card-subtitle>
             <div class="p-absolute content-card-actions-container">
               <!-- Bookmarks -->
               <span v-if="$route.name === 'Notes'">
-                <v-btn
-                  v-if="!note.bookmarked"
-                  icon
-                  @click="bookmarkNotes(note)"
-                >
-                  <v-icon color="primary" size="20"
-                    >mdi-bookmark-outline</v-icon
-                  >
+                <v-btn v-if="!note.bookmarked" icon @click="bookmarkNotes(note)">
+                  <v-icon color="primary" size="20">mdi-bookmark-outline</v-icon>
                 </v-btn>
-                <v-btn
-                  v-if="note.bookmarked"
-                  icon
-                  @click="removeBookmark(note)"
-                >
+                <v-btn v-if="note.bookmarked" icon @click="removeBookmark(note)">
                   <v-icon color="primary" size="20">mdi-bookmark</v-icon>
                 </v-btn>
               </span>
@@ -40,9 +26,7 @@
                 <v-icon size="20">mdi-pencil</v-icon>
               </v-btn>
               <v-btn color="error" icon>
-                <v-icon size="20" @click="deleteNote(note.id)"
-                  >mdi-delete-outline</v-icon
-                >
+                <v-icon size="20" @click="deleteNote(note.id)">mdi-delete-outline</v-icon>
               </v-btn>
             </div>
           </v-card>
@@ -54,12 +38,7 @@
       v-if="notesList.length === 0"
       class="img-content-container d-flex flex-column align-center"
     >
-      <v-img
-        class="default-img"
-        width="50%"
-        height="50%"
-        :src="noNotesImg"
-      ></v-img>
+      <v-img class="default-img" width="50%" height="50%" :src="noNotesImg"></v-img>
       <h2 class="img-content-text">
         No notes added yet. Click on the
         <v-icon size="24">mdi-plus-circle-outline</v-icon>&nbsp; button to
@@ -73,14 +52,12 @@
       colored-border
       type="success"
       elevation="3"
-      >{{ alertMsg }}</v-alert
-    >
+    >{{ alertMsg }}</v-alert>
   </v-container>
 </template>
 
 <script>
 import { mapState, mapActions, mapGetters } from "vuex";
-import { format } from "date-fns";
 import TakingNotesIllus from "../assets/logos/taking_notes.png";
 export default {
   name: "NotesList",
@@ -118,11 +95,11 @@ export default {
         .catch(err => console.log(err));
     },
     bookmarkNotes(note) {
-      const { title, description, id } = note;
+      const { title, description, id, dateCreated } = note;
       this.notesData = {
         title,
         description,
-        dateCreated: format(new Date(), `LLL d, yyyy`),
+        dateCreated,
         id,
         bookmarked: true
       };
@@ -136,11 +113,11 @@ export default {
         });
     },
     removeBookmark(note) {
-      const { title, description, id } = note;
+      const { title, description, id, dateCreated } = note;
       this.notesData = {
         title,
         description,
-        dateCreated: format(new Date(), `LLL d, yyyy`),
+        dateCreated,
         id,
         bookmarked: false
       };
